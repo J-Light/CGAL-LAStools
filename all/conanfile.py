@@ -2,14 +2,14 @@ from conans import ConanFile, CMake, tools
 import os
 
 
-class CgallstoolsConan(ConanFile):
-    name = "cgal-lstools"
+class CgallastoolsConan(ConanFile):
+    name = "cgal-lastools"
     version = "git"
-    license = "<Put the package license here>"
-    author = "<Put your name here> <And your email here>"
-    url = "<Package recipe repository url here, for issues about the package>"
-    description = "<Description of Cgallstools here>"
-    topics = ("<Put some tag here>", "<here>", "<and here>")
+    license = "LGPL"
+    author = "Martin Isenburg"
+    url = "https://github.com/JLight/CGAL-LAStools"
+    description = "Fork is design to be lightweight and self-contained LASLib"
+    # topics = ("<Put some tag here>", "<here>", "<and here>")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
@@ -26,7 +26,7 @@ class CgallstoolsConan(ConanFile):
         return self._cmake
 
     def source(self):
-        tools.get('https://github.com/CGAL/LAStools/archive/master.zip')
+        tools.get('https://github.com/J-Light/LAStools/archive/master.zip')
         os.rename('LAStools-master', self._source_subfolder)
 
     def build(self):
@@ -40,5 +40,5 @@ class CgallstoolsConan(ConanFile):
         tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
-        self.cpp_info.libs = ["cgal-lstools"]
-
+        self.cpp_info.includedirs = ['include/LASzip', 'include/LASlib']
+        self.cpp_info.libs = ['las']
